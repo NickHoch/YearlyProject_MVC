@@ -48,7 +48,8 @@ $(function () {
         sauce = parseInt($('#sauce').find(':selected').val());
         CountSum();
     });   
-    $('#addToBucket').click(function () {
+    $('#addToBucket').click(function (e) {
+        e.preventDefault();
         let basisId = $('#basis').find(':selected').attr('id');
         let sizeId = $('#size').find(':selected').attr('id');
         let sauceId = $('#sauce').find(':selected').attr('id');
@@ -74,7 +75,10 @@ $(function () {
             url: url,
             data: data,
             contentType: 'application/json',
-            success: function () { }
+            success: function ()
+            {
+                location.reload();
+            }
         });
     });
 });

@@ -25,8 +25,6 @@ namespace Home3__MVC.Controllers
         public async Task<ActionResult> Index()
         {
             HomeViewModel model = new HomeViewModel(_ctx.Basis.ToList(), _ctx.Size.ToList(), _ctx.Sauce.ToList(), _ctx.Ingredient.ToList());
-            //model.OrderList = Session["OrderList"] as string;
-            //model.TotalSum = Session["TotalSum"] as string;
             ApplicationUser user = await UserManager.FindByEmailAsync(User.Identity.Name);
             if (user != null)
             {
@@ -34,13 +32,6 @@ namespace Home3__MVC.Controllers
                 model.Order.Address = user.Address;
                 model.Order.PhoneNumber = user.PhoneNumber;
             }
-
-            //if (Session["Bucket"] != null)
-            //{
-            //    var bucket = Session["Bucket"] as List<ItemOrder>;
-            //    Session["Bucket"] = null;
-            //    Session["Bucket"] = bucket;
-            //}
             return View(model);
         }
 
@@ -72,13 +63,14 @@ namespace Home3__MVC.Controllers
             //Session["TotalSum"] = null;
         }
 
-        public void AddToBucket(string basisId, string sizeId, string sauceId, string ingridId, string quantity, string weight, string price)
+    
+        public async Task AddToBucket(string basisId, string sizeId, string sauceId, string ingridId, string quantity, string weight, string price)
         {
             Order order = null;
             if (Session["Bucket"] == null)
             {
                 order = new Order();
-                ApplicationUser user = UserManager.FindByEmail(User.Identity.Name);
+                ApplicationUser user = await UserManager.FindByEmailAsync(User.Identity.Name);
                 if (user != null)
                 {
                     order.User = user;
@@ -90,9 +82,7 @@ namespace Home3__MVC.Controllers
             else
             {
                 order = Session["Bucket"] as Order;
-            }
-
-           
+            }           
 
             bool flag = true;
             int basisIdInt;
@@ -126,7 +116,7 @@ namespace Home3__MVC.Controllers
                 flag = false;
             }
             List<int> ingridIdInt = new List<int>();
-            if (ingridId != String.Empty)
+            if (ingridId != null)
             {
                 List<string> ingridIdList = ingridId.Split(',').ToList<string>();
                 foreach (var item in ingridIdList)
@@ -160,39 +150,4 @@ namespace Home3__MVC.Controllers
             };
         }
     }
-
-    //public void AddToBucket(int? id, int? quantity, string orderItem, string totalSum)
-    //{
-    //    if (id != null && quantity != null)
-    //    {
-    //        Session["TotalSum"] = null;
-    //        Session["TotalSum"] = totalSum;
-    //        Session["OrderList"] += orderItem;
-
-    //        if (Session["Bucket"] == null)
-    //        {
-    //            Session["Bucket"] = new List<ItemOrder>
-    //            {
-    //                new ItemOrder
-    //                {
-    //                    Product = _ctx.Products.SingleOrDefault(x => x.Id == id),
-    //                    Quantity = (int)quantity
-    //                }
-    //            };
-    //        }
-    //        else
-    //        {
-    //            var bucket = Session["Bucket"];
-    //            var bucketList = bucket as List<ItemOrder>;
-    //            bucketList.Add(new ItemOrder
-    //            {
-    //                Product = _ctx.Products.SingleOrDefault(x => x.Id == id),
-    //                Quantity = (int)quantity
-    //            });
-    //            Session["Bucket"] = null;
-    //            Session["Bucket"] = bucketList;
-    //        }
-    //    }
-    //}
-
 }

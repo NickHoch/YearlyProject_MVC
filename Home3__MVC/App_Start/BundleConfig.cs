@@ -29,9 +29,9 @@ namespace Home3__MVC
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/Site.css"));
-            bundles.Add(new ScriptBundle("~/bundles/scripts").Include(
-                      "~/Scripts/buy.js",
-                      "~/Scripts/makeOrder.js"));
+            //bundles.Add(new ScriptBundle("~/bundles/scripts").Include(
+            //          "~/Scripts/buy.js",
+            //          "~/Scripts/makeOrder.js"));
             bundles.Add(new ScriptBundle("~/bundles/checkEmail").Include(
                       "~/Scripts/checkEmail.js"));
             bundles.Add(new ScriptBundle("~/bundles/checkEditedEmail").Include(
