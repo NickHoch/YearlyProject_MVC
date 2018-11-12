@@ -43,7 +43,7 @@ namespace Home3__MVC.Models
             _ctx.Ingredient.AddRange(new List<Ingredient>
             {
                 new Ingredient(6.0, 50, "Pineapple"),
-                new Ingredient(6.0, 50, "Bolognese(stuffing, carrots, bow, tomato)"),
+                new Ingredient(6.0, 50, "Bolognese"),
                 new Ingredient(6.5, 50, "Bacon"),
                 new Ingredient(6.0, 80, "Brynza"),
                 new Ingredient(2.5, 15, "Olive"),
