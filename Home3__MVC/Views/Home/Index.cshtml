@@ -1,0 +1,64 @@
+﻿@using Home3__MVC.Models;
+@using Home3__MVC.Helpers;
+@model HomeViewModel
+<div class="body-bg"></div>
+<div class="header"></div>
+<div class="row body">
+    <div class="col-lg-8 col-md-12 frame">
+        <div class="row" ">
+            <div class="col-lg-6 col-md-12">
+                @Html.SelectBasis(Model.Basis.ToList())
+                @Html.SelectSize(Model.Sizes.ToList())
+                @Html.SelectSauce(Model.Sauces.ToList())
+                <p style="margin: 10px">Available ingredients</p>
+                <div class="containerIngrid" id="availableIngrid" style="overflow-y: auto;">
+                    @Html.Ingredients(Model.Ingredients)
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <div style="height: 225px;">
+                    <h3 class="text" style="text-align:center; margin-top: 5px;">Pizza by your own recipe</h3>
+                    <hr>
+                    <div style="height: 40px; overflow-y: auto;">
+                        Fill up pizza from ingredients that you choose yourself. Eat only what you love! Price of the delivery is calculated by the operator during creation your order.
+                    </div>
+                    <hr />
+                    <p class="pull-right ing-price cheque" id="price">uah</p>
+                    <p class="cheque" style="display: inline-block;">Sum(</p>
+                    <p class="cheque" style="display: inline-block;" id="weight"></p>
+                    <p class="cheque" style="display: inline-block;">g ingredients):</p>
+                    <div style="flex-direction:row; justify-content:flex-start; align-items:center; display:flex;">
+                        <div style="margin-right:5px;">Enter quantity of the pizza:</div>
+                        @Html.NumericUpDown("quantity", "0", "10", "1")
+                        <input id="addToBucket" type="submit" value="Add to bucket" data-url="@Url.Action("AddToBucket", "Home")" class="btn btn-warning" style="margin-left:10px;" />
+                        <input id="makeOrder" type="submit" value="Make order" data-url="@Url.Action("MakeOrder", "Home")" class="btn btn-warning " style="margin-left:10px;" />
+                    </div>
+                </div>
+                <p style="margin-left: 10px">Selected ingredients</p>
+                <div id="selectedIngrid" class="containerIngrid" style="overflow-y: auto;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer"></div>
+
+@*<table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th>Image</th>
+                <th>Description</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Products)
+            {
+                <tr id="@("tr" + item.Id)">
+                    <td>@Html.Partial("_Image", item.UrlImage)</td>
+                    <td>@Html.Partial("_Description", new Product { Name = item.Name, Description = item.Description })</td>
+                    <td>@Html.Partial("_Action", new Product { Id = item.Id, Price = item.Price })</td>
+                </tr>
+            }
+        </tbody>
+    </table>*@
+@*@Html.Partial("_Order", Model)*@

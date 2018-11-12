@@ -1,0 +1,35 @@
+﻿@if (User.Identity.IsAuthenticated)
+{
+    <li>
+        @Html.ActionLink("Hello " + @User.Identity.Name + "!", "Edit", "Account")
+    </li>
+    <li>
+        @Html.ActionLink("Bucket", "Bucket", "Home")
+    </li>
+    <li>
+        <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                Profile
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li>@Html.ActionLink("Edit", "Edit", "Account", new { }, new { @class = "dropdown-item" })</li>
+                <li>@Html.ActionLink("Delete", "Delete", "Account", new { }, new { @class = "dropdown-item" })</li>
+                <li role="separator" class="divider"></li>
+                <li>@Html.ActionLink("Log out", "LogOut", "Account", new { }, new { @class = "dropdown-item" })</li>
+            </ul>
+        </div>
+    </li>
+}
+else
+{
+    <li>
+        @Html.ActionLink("Sign Up", "Register", "Account")
+    </li>
+    <li>
+        @Html.ActionLink("Sign In", "Login", "Account")
+    </li>
+    <li>
+        @Html.ActionLink("Bucket", "Bucket", "Home")
+    </li>
+}

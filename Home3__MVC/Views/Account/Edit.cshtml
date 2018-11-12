@@ -1,0 +1,72 @@
+﻿@model Home3__MVC.Models.EditModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+<div class="container body-content">
+    <h3>Edit profile</h3>
+
+    @using (Html.BeginForm(FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <h4>Edit your account</h4>
+        <hr />
+        <div>
+            @Html.LabelFor(m => m.Name)
+            <br />
+            @Html.EditorFor(m => m.Name)
+            @Html.ValidationMessageFor(m => m.Name)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.Email)
+            <br />
+            @Html.EditorFor(m => m.Email, new { htmlAttributes = new { data_url = Url.Action("EditEmail", "Account"), placeholder = "example@domain.com" } })
+            @Html.ValidationMessageFor(m => m.Email)
+            <label id="msg"></label>
+        </div>
+        <div>
+            @Html.LabelFor(m => m.CurrentPassword)
+            <br />
+            @Html.EditorFor(m => m.CurrentPassword, new { htmlAttributes = new { placeholder = "Enter current password" } })
+            @Html.ValidationMessageFor(m => m.CurrentPassword)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.Password)
+            <br />
+            @Html.EditorFor(m => m.Password, new { htmlAttributes = new { placeholder = "Enter new password" } })
+            @Html.ValidationMessageFor(m => m.Password)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.PasswordConfirm)
+            <br />
+            @Html.EditorFor(m => m.PasswordConfirm, new { htmlAttributes = new { placeholder = "Confirm your password" } })
+            @Html.ValidationMessageFor(m => m.PasswordConfirm)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.Address)
+            <br />
+            @Html.EditorFor(m => m.Address)
+            @Html.ValidationMessageFor(m => m.Address)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.PhoneNumber)
+            <br />
+            @Html.EditorFor(m => m.PhoneNumber, new { htmlAttributes = new { placeholder = "+380XX-XX-XX-XXX" } })
+            @Html.ValidationMessageFor(m => m.PhoneNumber)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.Gender)
+            <br />
+            <label>Male:</label>
+            @Html.RadioButtonFor(m => m.Gender, true, new { @checked = true })
+            <label>Female:</label>
+            @Html.RadioButtonFor(m => m.Gender, false)
+        </div>
+        <div class="button">
+            <input type="submit" value="Submit" />
+        </div>
+
+        @Html.ValidationSummary(true)
+        @Scripts.Render("~/bundles/editEmail")
+    }
+</div>

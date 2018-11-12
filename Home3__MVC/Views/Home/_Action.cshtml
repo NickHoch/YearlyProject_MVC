@@ -1,0 +1,5 @@
+﻿@using Home3__MVC.Models
+@using Home3__MVC.Helpers
+@model Product
+@Html.NumericUpDown("0", "5", "1")
+@Html.Button(("tr" + Model.Id), Model.Price.ToString(), Url.Action("AddToBucket", "Home"), "Buy")

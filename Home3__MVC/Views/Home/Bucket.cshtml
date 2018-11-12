@@ -1,0 +1,38 @@
+﻿@using Home3__MVC.Models
+@model Order
+@{
+    ViewBag.Title = "Bucket";
+}
+<div class="container body-content">
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th>Basis</th>
+                <th>Size</th>
+                <th>Sauce</th>
+                <th>Ingredients</th>
+                <th>Quantity</th>
+                <th>Total weight</th>
+                <th>Total price</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                <tr id="@("tr" + item.Id)">
+                    <td>@item.Pizza.Basis.Name</td>
+                    <td>@item.Pizza.Size.Name</td>
+                    <td>@item.Pizza.Sauce.Name</td>
+                    <td>@string.Join(", ", item.Pizza.Ingredients.Select(x => x.Name).ToArray())</td>
+                    <td>@item.Quantity</td>
+                    <td>@(item.Pizza.Weight * item.Quantity)</td>
+                    <td>@(item.Pizza.Price * item.Quantity)</td>
+                    <td></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+

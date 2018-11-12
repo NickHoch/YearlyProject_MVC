@@ -1,0 +1,58 @@
+﻿@using Home3__MVC.Helpers
+@using Home3__MVC.Models
+@model RegisterModel
+@{
+    ViewBag.Title = "Register";
+}
+<div class="container body-content">
+    <h2>Register</h2>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <h4>Register new account</h4>
+        <hr />
+        <div>
+            @Html.LabelFor(m => m.Email)
+            <br />
+            @Html.EditorFor(m => m.Email, new { htmlAttributes = new { data_url = Url.Action("CheckEmail", "Account"), placeholder = "example@domain.com" } })
+            @Html.ValidationMessageFor(m => m.Email)
+            <label id="msg"></label>
+        </div>
+        <div>
+            @Html.LabelFor(m => m.Password)
+            <br />
+            @Html.EditorFor(m => m.Password)
+            @Html.ValidationMessageFor(m => m.Password)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.PasswordConfirm)
+            <br />
+            @Html.EditorFor(m => m.PasswordConfirm)
+            @Html.ValidationMessageFor(m => m.PasswordConfirm)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.Name)
+            <br />
+            @Html.EditorFor(m => m.Name)
+            @Html.ValidationMessageFor(m => m.Name)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.Address)
+            <br />
+            @Html.EditorFor(m => m.Address)
+            @Html.ValidationMessageFor(m => m.Address)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.PhoneNumber)
+            <br />
+            @Html.EditorFor(m => m.PhoneNumber, new { htmlAttributes = new { placeholder = "+380XX-XX-XX-XXX" } })
+            @Html.ValidationMessageFor(m => m.PhoneNumber)
+        </div>
+        <div class="submit">
+            <input type="submit" value="Submit" />
+        </div>
+
+        @Html.ValidationSummary(true)
+        @Scripts.Render("~/bundles/checkEmail")
+    }
+</div>
