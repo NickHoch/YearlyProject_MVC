@@ -9,7 +9,7 @@ namespace Home3__MVC.Models.DbModels
     {
         public Pizza()
         {
-            ItemOrders = new List<ItemOrder>();
+            ItemOrders = new List<OrderItem>();
             Ingredients = new List<Ingredient>();
         }
         public Pizza(Basis basis, Size size, Sauce sauce, List<Ingredient> ingredients, double weight, double price)
@@ -20,7 +20,7 @@ namespace Home3__MVC.Models.DbModels
             Ingredients = ingredients;
             Weight = weight;
             Price = price;
-            ItemOrders = new List<ItemOrder>();
+            ItemOrders = new List<OrderItem>();
         }
         public int Id { get; set; }
         public virtual Basis Basis { get; set; }
@@ -29,6 +29,6 @@ namespace Home3__MVC.Models.DbModels
         public virtual ICollection<Ingredient> Ingredients { get; set; }
         public double Weight { get; set; }
         public double Price { get; set; }
-        public virtual ICollection<ItemOrder> ItemOrders { get; set; }
+        public virtual ICollection<OrderItem> ItemOrders { get; set; }
     }
 }

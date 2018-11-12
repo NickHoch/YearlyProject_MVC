@@ -54,14 +54,6 @@
             @Html.EditorFor(m => m.PhoneNumber, new { htmlAttributes = new { placeholder = "+380XX-XX-XX-XXX" } })
             @Html.ValidationMessageFor(m => m.PhoneNumber)
         </div>
-        <div>
-            @Html.LabelFor(m => m.Gender)
-            <br />
-            <label>Male:</label>
-            @Html.RadioButtonFor(m => m.Gender, true, new { @checked = true })
-            <label>Female:</label>
-            @Html.RadioButtonFor(m => m.Gender, false)
-        </div>
         <div class="button">
             <input type="submit" value="Submit" />
         </div>

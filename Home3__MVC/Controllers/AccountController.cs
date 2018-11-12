@@ -14,7 +14,7 @@ namespace Home3__MVC.Controllers
 {
     public class AccountController : Controller
     {
-        public static ApplicationContext _ctx = new ApplicationContext();
+        private static ApplicationContext _ctx = new ApplicationContext();
         private ApplicationUserManager UserManager
         {
             get

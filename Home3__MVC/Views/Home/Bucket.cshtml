@@ -3,8 +3,8 @@
 @{
     ViewBag.Title = "Bucket";
 }
-<div class="container body-content">
-    <table class="table">
+<div class="panel panel-default container body-content" style="height: 500px; overflow-y: auto;">
+    <table id="bucketTb" class="table table-hover table-striped">
         <thead class="thead-dark">
             <tr>
                 <th>Basis</th>
@@ -17,10 +17,10 @@
                 <th>Delete</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="ordItemBd">
             @foreach (var item in Model.Items)
             {
-                <tr id="@("tr" + item.Id)">
+                <tr>
                     <td>@item.Pizza.Basis.Name</td>
                     <td>@item.Pizza.Size.Name</td>
                     <td>@item.Pizza.Sauce.Name</td>
@@ -28,11 +28,15 @@
                     <td>@item.Quantity</td>
                     <td>@(item.Pizza.Weight * item.Quantity)</td>
                     <td>@(item.Pizza.Price * item.Quantity)</td>
-                    <td></td>
+                    <td>
+                        <input type="button" id="@("ordItm" + item.Id)" data-url="@Url.Action("DeleteOrderItem", "Home")" value="Delete" />
+                    </td>
                 </tr>
             }
         </tbody>
     </table>
+    <div id="sumBucket" style="margin:5px; font-weight:700;"></div>
 </div>
+@*<div class="container body-content" style="height: 400px; overflow-y: auto;">
 
-
+</div>*@

@@ -36,7 +36,9 @@ namespace Home3__MVC
                       "~/Scripts/checkEmail.js"));
             bundles.Add(new ScriptBundle("~/bundles/checkEditedEmail").Include(
                       "~/Scripts/checkEditedEmail.js"));
-            bundles.Add(new ScriptBundle("~/bundles/orderActions").Include(
+            bundles.Add(new ScriptBundle("~/bundles/scripts").Include(
+                      "~/Scripts/delOrderItem.js",
+                      "~/Scripts/calcSum.js",
                       "~/Scripts/orderActions.js"));
         }
     }

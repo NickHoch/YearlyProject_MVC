@@ -16,7 +16,7 @@ namespace Home3__MVC.Models
             return new ApplicationContext();
         }
         public virtual DbSet<Order> Orders { get; set; }
-        public virtual DbSet<ItemOrder> ItemOrder { get; set; }
+        public virtual DbSet<OrderItem> ItemOrder { get; set; }
         public virtual DbSet<Basis> Basis { get; set; }
         public virtual DbSet<Size> Size { get; set; }
         public virtual DbSet<Sauce> Sauce { get; set; }

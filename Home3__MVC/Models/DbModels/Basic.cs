@@ -9,6 +9,6 @@ namespace Home3__MVC.Models.DbModels
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public virtual ICollection<ItemOrder> ItemOrders { get; set; }
+        public virtual ICollection<OrderItem> ItemOrders { get; set; }
     }
 }

@@ -31,7 +31,7 @@
                         <div style="margin-right:5px;">Enter quantity of the pizza:</div>
                         @Html.NumericUpDown("quantity", "0", "10", "1")
                         <input id="addToBucket" type="submit" value="Add to bucket" data-url="@Url.Action("AddToBucket", "Home")" class="btn btn-warning" style="margin-left:10px;" />
-                        <input id="makeOrder" type="submit" value="Make order" data-url="@Url.Action("MakeOrder", "Home")" class="btn btn-warning " style="margin-left:10px;" />
+                        @*<input id="makeOrder" type="submit" value="Make order" data-url="@Url.Action("MakeOrder", "Home")" class="btn btn-warning " style="margin-left:10px;" />*@
                     </div>
                 </div>
                 <p style="margin-left: 10px">Selected ingredients</p>

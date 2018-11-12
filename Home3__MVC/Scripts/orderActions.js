@@ -55,21 +55,21 @@ $(function () {
         let sauceId = $('#sauce').find(':selected').attr('id');
         let quantity = $('#quantity').val();
 
-        let ingridId = '';
+        let ingridIds = [];
         $('#selectedIngrid > div').each(function () {
-            ingridId += $(this).attr('id') + ',';
+            ingridIds.push($(this).attr('id'));
         });
 
-        var data = JSON.stringify({
+        let data = JSON.stringify({
             'basisId': basisId,
             'sizeId': sizeId,
             'sauceId': sauceId,
-            'ingridId': ingridId,
+            'ingridIds': ingridIds,
             'quantity': quantity,
             'weight': weight,
             'price': price
         });
-        var url = $(this).data('url');
+        let url = $(this).data('url');
         $.ajax({
             type: 'POST',
             url: url,

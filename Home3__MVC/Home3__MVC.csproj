@@ -190,6 +190,7 @@
     <Compile Include="Models\ApplicationContext.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\ApplicationUserManager.cs" />
+    <Compile Include="Models\BucketItem.cs" />
     <Compile Include="Models\DbModels\Basic.cs" />
     <Compile Include="Models\DbModels\Basis.cs" />
     <Compile Include="Models\DbModels\Custmoinitializer.cs" />
@@ -199,7 +200,7 @@
     <Compile Include="Models\DbModels\Size.cs" />
     <Compile Include="Models\EditModel.cs" />
     <Compile Include="Models\HomeViewModel.cs" />
-    <Compile Include="Models\DbModels\ItemOrder.cs" />
+    <Compile Include="Models\DbModels\OrderItem.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\DbModels\Order.cs" />
     <Compile Include="Models\RegisterModel.cs" />
@@ -220,7 +221,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\calcSum.js" />
     <Content Include="Scripts\checkEmail.js" />
+    <Content Include="Scripts\delOrderItem.js" />
     <Content Include="Scripts\editEmail.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -249,11 +252,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Home\_Action.cshtml" />
-    <Content Include="Views\Home\_Description.cshtml" />
-    <Content Include="Views\Home\_Image.cshtml" />
-    <Content Include="Views\Home\_Order.cshtml" />
-    <Content Include="Views\Home\_PopUp.cshtml" />
     <Content Include="Views\Shared\_Account.cshtml" />
     <Content Include="Views\Account\Delete.cshtml" />
     <Content Include="Views\Account\Edit.cshtml" />

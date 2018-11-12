@@ -13,7 +13,8 @@ namespace Home3__MVC.Controllers
 {
     public class HomeController : Controller
     {
-        public static ApplicationContext _ctx = new ApplicationContext();
+        private static ApplicationContext _ctx = new ApplicationContext();
+        private static int Counter = 1;
 
         private ApplicationUserManager UserManager
         {
@@ -38,13 +39,19 @@ namespace Home3__MVC.Controllers
         public ActionResult Bucket()
         {
             Order model = new Order();
-            if(Session["Bucket"] != null)
+            if (Session["Bucket"] != null)
             {
                 model = Session["Bucket"] as Order;
             }
             return View(model);
         }
 
+        public void DeleteOrderItem(int id)
+        {
+            Order order = Session["Bucket"] as Order;
+            order.Items.Remove(order.Items.SingleOrDefault(x => x.Id == id));
+            Session["Bucket"] = order;
+        }
         public void MakeOrder(string clientName, string clientNumber, string clientAddress)
         {
             //Order order = new Order
@@ -62,9 +69,7 @@ namespace Home3__MVC.Controllers
             //Session["OrderList"] = null;
             //Session["TotalSum"] = null;
         }
-
-    
-        public async Task AddToBucket(string basisId, string sizeId, string sauceId, string ingridId, string quantity, string weight, string price)
+        public async Task AddToBucket(BucketItem bucketItem)
         {
             Order order = null;
             if (Session["Bucket"] == null)
@@ -82,72 +87,24 @@ namespace Home3__MVC.Controllers
             else
             {
                 order = Session["Bucket"] as Order;
-            }           
+            }
 
-            bool flag = true;
-            int basisIdInt;
-            if (!Int32.TryParse(basisId, out basisIdInt))
+            List<Ingredient> ingredients = new List<Ingredient>();
+            foreach (var item in bucketItem.ingridIds)
             {
-                flag = false;
+                ingredients.Add(_ctx.Ingredient.SingleOrDefault(x => x.Id == item));
             }
-            int sizeIdInt;
-            if (!Int32.TryParse(sizeId, out sizeIdInt))
-            {
-                flag = false;
-            }
-            int sauceIdInt;
-            if (!Int32.TryParse(sauceId, out sauceIdInt))
-            {
-                flag = false;
-            }
-            int quantityInt;
-            if (!Int32.TryParse(quantity, out quantityInt))
-            {
-                flag = false;
-            }
-            double weightDouble;
-            if (!Double.TryParse(weight, out weightDouble))
-            {
-                flag = false;
-            }
-            double priceDouble;
-            if (!Double.TryParse(price, out priceDouble))
-            {
-                flag = false;
-            }
-            List<int> ingridIdInt = new List<int>();
-            if (ingridId != null)
-            {
-                List<string> ingridIdList = ingridId.Split(',').ToList<string>();
-                foreach (var item in ingridIdList)
-                {
-                    int id;
-                    if (Int32.TryParse(item, out id))
-                    {
-                        ingridIdInt.Add(id);
-                    }
-                }
-            }          
-
-            if (flag)
-            {
-                List<Ingredient> ingredients = new List<Ingredient>();
-                foreach (var item in ingridIdInt)
-                {
-                    ingredients.Add(_ctx.Ingredient.SingleOrDefault(x => x.Id == item));
-                }
-                Pizza pizza = new Pizza(
-                    _ctx.Basis.SingleOrDefault(x => x.Id == basisIdInt),
-                    _ctx.Size.SingleOrDefault(x => x.Id == sizeIdInt),
-                    _ctx.Sauce.SingleOrDefault(x => x.Id == sauceIdInt),
-                    ingredients,
-                    weightDouble,
-                    priceDouble
-                );
-                order.Items.Add(new ItemOrder(quantityInt, pizza));
-                Session["Bucket"] = null;
-                Session["Bucket"] = order;
-            };
+            Pizza pizza = new Pizza(
+                _ctx.Basis.SingleOrDefault(x => x.Id == bucketItem.basisId),
+                _ctx.Size.SingleOrDefault(x => x.Id == bucketItem.sizeId),
+                _ctx.Sauce.SingleOrDefault(x => x.Id == bucketItem.sauceId),
+                ingredients,
+                bucketItem.weight,
+                bucketItem.price
+            );
+            order.Items.Add(new OrderItem(Counter++, bucketItem.quantity, pizza));
+            Session["Bucket"] = null;
+            Session["Bucket"] = order;
         }
     }
 }

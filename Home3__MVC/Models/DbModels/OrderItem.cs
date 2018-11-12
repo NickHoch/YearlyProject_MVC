@@ -6,11 +6,12 @@ using System.Web;
 
 namespace Home3__MVC.Models
 {
-    public class ItemOrder
+    public class OrderItem
     {
-        public ItemOrder() { }
-        public ItemOrder(int quantity, Pizza pizza)
+        public OrderItem() { }
+        public OrderItem(int id, int quantity, Pizza pizza)
         {
+            Id = id;
             Quantity = quantity;
             Pizza = pizza;
         }
