@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace Home3__MVC.Models.DbModels
+namespace Home3__MVC.Models
 {
     public class Pizza
     {
@@ -23,12 +24,16 @@ namespace Home3__MVC.Models.DbModels
             ItemOrders = new List<OrderItem>();
         }
         public int Id { get; set; }
-        public virtual Basis Basis { get; set; }
-        public virtual Size Size { get; set; }
-        public virtual Sauce Sauce { get; set; }
-        public virtual ICollection<Ingredient> Ingredients { get; set; }
         public double Weight { get; set; }
         public double Price { get; set; }
+        [Required]
+        public virtual Basis Basis { get; set; }
+        [Required]
+        public virtual Size Size { get; set; }
+        [Required]
+        public virtual Sauce Sauce { get; set; }
+        public virtual ICollection<Ingredient> Ingredients { get; set; }
+        [Required]
         public virtual ICollection<OrderItem> ItemOrders { get; set; }
     }
 }

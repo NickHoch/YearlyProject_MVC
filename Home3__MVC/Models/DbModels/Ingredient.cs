@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Home3__MVC.Models.DbModels
+namespace Home3__MVC.Models
 {
     public class Ingredient : Basic
     {
@@ -16,5 +16,6 @@ namespace Home3__MVC.Models.DbModels
         }
         public double Price { get; set; }
         public double Weight { get; set; }
+
     }
 }

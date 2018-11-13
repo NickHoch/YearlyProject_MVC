@@ -1,5 +1,4 @@
 ﻿using System.Data.Entity;
-using Home3__MVC.Models.DbModels;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Home3__MVC.Models
@@ -15,6 +14,14 @@ namespace Home3__MVC.Models
         {
             return new ApplicationContext();
         }
+
+        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<Order>()
+        //        .HasOptional(o => o.User)
+        //        .WithMany(u => u.Orders);
+        //    base.OnModelCreating(modelBuilder);
+        //}
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<OrderItem> ItemOrder { get; set; }
         public virtual DbSet<Basis> Basis { get; set; }

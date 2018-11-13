@@ -1,5 +1,4 @@
 ﻿using Home3__MVC.Models;
-using Home3__MVC.Models.DbModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System;
@@ -26,22 +25,44 @@ namespace Home3__MVC.Controllers
         public async Task<ActionResult> Index()
         {
             HomeViewModel model = new HomeViewModel(_ctx.Basis.ToList(), _ctx.Size.ToList(), _ctx.Sauce.ToList(), _ctx.Ingredient.ToList());
-            ApplicationUser user = await UserManager.FindByEmailAsync(User.Identity.Name);
+            ApplicationUser user = await UserManager.FindByNameAsync(User.Identity.Name);
             if (user != null)
             {
-                model.Order.Name = user.Name;
-                model.Order.Address = user.Address;
-                model.Order.PhoneNumber = user.PhoneNumber;
+                model.Order.ContactInfo.Name = user.Name;
+                model.Order.ContactInfo.Address = user.Address;
+                model.Order.ContactInfo.PhoneNumber = user.PhoneNumber;
             }
             return View(model);
         }
 
-        public ActionResult Bucket()
+        public async Task<Order> SetUserInfo(Order model)
         {
-            Order model = new Order();
+            ApplicationUser user = await UserManager.FindByNameAsync(User.Identity.Name);
+            if (user != null)
+            {
+                model.UserId = user.Id;
+                model.ContactInfo.Name = user.Name;
+                model.ContactInfo.PhoneNumber = user.PhoneNumber;
+                model.ContactInfo.Address = user.Address;
+            }
+            return model;
+        }
+
+        public async Task<ActionResult> Bucket()
+        {
+            Order model = null;
             if (Session["Bucket"] != null)
             {
                 model = Session["Bucket"] as Order;
+                if (model.UserId == null)
+                {
+                    model = await SetUserInfo(model);
+                }
+            }
+            else
+            {
+                model = new Order();
+                model = await SetUserInfo(model);
             }
             return View(model);
         }
@@ -52,36 +73,36 @@ namespace Home3__MVC.Controllers
             order.Items.Remove(order.Items.SingleOrDefault(x => x.Id == id));
             Session["Bucket"] = order;
         }
-        public void MakeOrder(string clientName, string clientNumber, string clientAddress)
+        [HttpPost]
+        public ActionResult MakeOrder(ContactInfo contactInfo)
         {
-            //Order order = new Order
-            //{
-            //    Info = new ContactInfo
-            //    {
-            //        Name = clientName,
-            //        PhoneNumber = clientNumber,
-            //        Address = clientAddress
-            //    },
-            //    Items = Session["Bucket"] as List<ItemOrder>
-            //};
-            //_ctx.Orders.Add(order);
-            //_ctx.SaveChanges();
-            //Session["OrderList"] = null;
-            //Session["TotalSum"] = null;
+            Order order = Session["Bucket"] as Order;
+            if(order == null)
+            {
+                return RedirectToAction("Bucket");
+            }
+            order.ContactInfo.Name = contactInfo.Name;
+            order.ContactInfo.PhoneNumber = contactInfo.PhoneNumber;
+            order.ContactInfo.Address = contactInfo.Address;
+            _ctx.Orders.Add(order);
+            _ctx.SaveChanges();
+            Session["Bucket"] = null;
+            return RedirectToAction("Index");
         }
-        public async Task AddToBucket(BucketItem bucketItem)
+        [HttpPost]
+        public async Task AddToBucket(BucketItemModel bucketItem)
         {
             Order order = null;
             if (Session["Bucket"] == null)
             {
                 order = new Order();
-                ApplicationUser user = await UserManager.FindByEmailAsync(User.Identity.Name);
+                ApplicationUser user = await UserManager.FindByNameAsync(User.Identity.Name);
                 if (user != null)
                 {
-                    order.User = user;
-                    order.Name = user.Name;
-                    order.PhoneNumber = user.PhoneNumber;
-                    order.Address = user.Address;
+                    order.UserId = user.Id;
+                    order.ContactInfo.Name = user.Name;
+                    order.ContactInfo.PhoneNumber = user.PhoneNumber;
+                    order.ContactInfo.Address = user.Address;
                 }
             }
             else
@@ -105,6 +126,10 @@ namespace Home3__MVC.Controllers
             order.Items.Add(new OrderItem(Counter++, bucketItem.quantity, pizza));
             Session["Bucket"] = null;
             Session["Bucket"] = order;
+        }
+        public bool CheckEmail(string email)
+        {
+            return _ctx.Users.Any(x => x.Email == email);
         }
     }
 }

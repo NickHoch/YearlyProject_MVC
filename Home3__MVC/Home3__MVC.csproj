@@ -190,9 +190,10 @@
     <Compile Include="Models\ApplicationContext.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\ApplicationUserManager.cs" />
-    <Compile Include="Models\BucketItem.cs" />
+    <Compile Include="Models\BucketItemModel.cs" />
     <Compile Include="Models\DbModels\Basic.cs" />
     <Compile Include="Models\DbModels\Basis.cs" />
+    <Compile Include="Models\DbModels\ContactInfo.cs" />
     <Compile Include="Models\DbModels\Custmoinitializer.cs" />
     <Compile Include="Models\DbModels\Ingredient.cs" />
     <Compile Include="Models\DbModels\Pizza.cs" />

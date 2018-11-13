@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Home3__MVC.Models
 {
-    public class BucketItem
+    public class BucketItemModel
     {
         public int basisId { get; set; }
         public int sauceId { get; set; }

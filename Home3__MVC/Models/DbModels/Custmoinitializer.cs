@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
-using Home3__MVC.Models.DbModels;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 
 
@@ -55,9 +57,14 @@ namespace Home3__MVC.Models
                 new Ingredient(5.0, 40, "Chicken")
             });
             _ctx.SaveChanges();
+            var store = new UserStore<ApplicationUser>(_ctx);
+            var manager = new ApplicationUserManager(store);
+            ApplicationUser user = new ApplicationUser { Name = "Vasya", UserName = "vasya.pupkin@gmail.com", Email = "vasya.pupkin@gmail.com", PhoneNumber = "+380980630500", Address = "Rivne, Soborna, 1" };
+            //var user = new ApplicationUser() { Email = "informatyka4444@wp.pl", UserName = "informatyka4444@wp.pl" };
+            manager.Create(user, "Qwerty_123");
 
-            ApplicationUser user = new ApplicationUser { Name="test", UserName = "test@test.test", Email = "test@test.test", PhoneNumber = "+380988545888", Address = "testAddr"};
-            UserManager.CreateAsync(user, "Qwerty_123");
+            //ApplicationUser user = new ApplicationUser { Name = "Vasya", UserName = "vasya.pupkin@gmail.com", Email = "vasya.pupkin@gmail.com", PhoneNumber = "+380980630500", Address = "Rivne, Soborna, 1" };
+            //UserManager.Create(user, "Qwerty_123");
         }
     }
 }

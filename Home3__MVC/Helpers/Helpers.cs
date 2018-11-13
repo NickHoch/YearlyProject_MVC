@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using Home3__MVC.Models.DbModels;
+using Home3__MVC.Models;
 
 namespace Home3__MVC.Helpers
 {
@@ -14,6 +14,7 @@ namespace Home3__MVC.Helpers
             input.MergeAttribute("min", min);
             input.MergeAttribute("max", max);
             input.MergeAttribute("value", startValue);
+            input.MergeAttribute("type", "number");
             input.AddCssClass("numericUpDown");
             return new MvcHtmlString(input.ToString());
         }

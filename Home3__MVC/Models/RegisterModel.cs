@@ -28,6 +28,8 @@ namespace Home3__MVC.Models
         [Required(ErrorMessage = "Please enter phone number")]
         [RegularExpression(@"\+380\d{9}", ErrorMessage = "Phone number is not valid. Example: +380XX-XX-XX-XXX")]
         public string PhoneNumber { get; set; }
+
+        [RegularExpression(@"Rivne, \w+, \w+|/", ErrorMessage = "Address is not valid. Example: Rivne, Street name, Building number")]
         public string Address { get; set; }
     }
 }

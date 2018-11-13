@@ -89,7 +89,7 @@ button {
 }
 
 .numericUpDown {
-    width: 30px;
+    width: 40px;
 }
 
 /*-----------------------------------*/
@@ -180,6 +180,5 @@ select {
 }
 
 hr {
-    width: 200px;
     border-width: 2px;
 }

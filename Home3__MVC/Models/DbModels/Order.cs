@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -9,15 +10,16 @@ namespace Home3__MVC.Models
     {
         public Order()
         {
-            User = new ApplicationUser();
+            //User = new ApplicationUser();
             Items = new List<OrderItem>();
+            ContactInfo = new ContactInfo();
         }
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string PhoneNumber { get; set; }
-        public string Address { get; set; }
-        public double Price { get; set; }
-        public virtual ApplicationUser User { get; set; }
+        //public virtual ApplicationUser User { get; set; }
+        public string UserId { get; set; }
+        [Required]
+        public virtual ContactInfo ContactInfo { get; set; }
+        [Required]
         public virtual ICollection<OrderItem> Items { get; set; }
     }
 }

@@ -3,41 +3,64 @@
 @{
     ViewBag.Title = "Bucket";
 }
-<div class="panel panel-default container body-content" style="height: 500px; overflow-y: auto;">
-    <table id="bucketTb" class="table table-hover table-striped">
-        <thead class="thead-dark">
-            <tr>
-                <th>Basis</th>
-                <th>Size</th>
-                <th>Sauce</th>
-                <th>Ingredients</th>
-                <th>Quantity</th>
-                <th>Total weight</th>
-                <th>Total price</th>
-                <th>Delete</th>
-            </tr>
-        </thead>
-        <tbody id="ordItemBd">
-            @foreach (var item in Model.Items)
-            {
+
+<div class="container body-content">
+    <div style="height: 500px; overflow-y: auto;">
+        <table id="bucketTb" class="table table-hover table-striped">
+            <thead class="thead-dark">
                 <tr>
-                    <td>@item.Pizza.Basis.Name</td>
-                    <td>@item.Pizza.Size.Name</td>
-                    <td>@item.Pizza.Sauce.Name</td>
-                    <td>@string.Join(", ", item.Pizza.Ingredients.Select(x => x.Name).ToArray())</td>
-                    <td>@item.Quantity</td>
-                    <td>@(item.Pizza.Weight * item.Quantity)</td>
-                    <td>@(item.Pizza.Price * item.Quantity)</td>
-                    <td>
-                        <input type="button" id="@("ordItm" + item.Id)" data-url="@Url.Action("DeleteOrderItem", "Home")" value="Delete" />
-                    </td>
+                    <th>Basis</th>
+                    <th>Size</th>
+                    <th>Sauce</th>
+                    <th>Ingredients</th>
+                    <th>Quantity</th>
+                    <th>Total weight</th>
+                    <th>Total price</th>
+                    <th>Delete</th>
                 </tr>
-            }
-        </tbody>
-    </table>
-    <div id="sumBucket" style="margin:5px; font-weight:700;"></div>
-
+            </thead>
+            <tbody id="ordItemBd">
+                @foreach (var item in Model.Items)
+                {
+                    <tr>
+                        <td>@item.Pizza.Basis.Name</td>
+                        <td>@item.Pizza.Size.Name</td>
+                        <td>@item.Pizza.Sauce.Name</td>
+                        <td>@string.Join(", ", item.Pizza.Ingredients.Select(x => x.Name).ToArray())</td>
+                        <td>@item.Quantity</td>
+                        <td>@(item.Pizza.Weight * item.Quantity)</td>
+                        <td>@(item.Pizza.Price * item.Quantity)</td>
+                        <td>
+                            <input type="button" id="@("ordItm" + item.Id)" data-url="@Url.Action("DeleteOrderItem", "Home")" value="Delete" />
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div id="sumBucket" style="margin:5px; font-weight:700;"></div>
+    </div>
+    <hr />
+    @using (Html.BeginForm("MakeOrder", "Home"))
+    {
+        <h4>Contact information</h4>
+        <div>
+            @Html.LabelFor(m => m.ContactInfo.Name)
+            <br />
+            @Html.EditorFor(m => m.ContactInfo.Name)
+            @Html.ValidationMessageFor(m => m.ContactInfo.Name)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.ContactInfo.PhoneNumber)
+            <br />
+            @Html.EditorFor(m => m.ContactInfo.PhoneNumber, new { htmlAttributes = new { placeholder = "+380XX-XX-XX-XXX" } })
+            @Html.ValidationMessageFor(m => m.ContactInfo.PhoneNumber)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.ContactInfo.Address)
+            <br />
+            @Html.EditorFor(m => m.ContactInfo.Address, new { htmlAttributes = new { placeholder = "Rivne, Street name, Building number" } })
+            @Html.ValidationMessageFor(m => m.ContactInfo.Address)
+        </div>
+        <input type="submit" value="Make order" />
+    }
 </div>
-@*<div class="container body-content" style="height: 400px; overflow-y: auto;">
-
-</div>*@

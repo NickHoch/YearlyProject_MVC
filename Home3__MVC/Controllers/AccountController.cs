@@ -14,12 +14,20 @@ namespace Home3__MVC.Controllers
 {
     public class AccountController : Controller
     {
-        private static ApplicationContext _ctx = new ApplicationContext();
+        //private ApplicationContext _ctx = new ApplicationContext();
         private ApplicationUserManager UserManager
         {
             get
             {
                 return HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+        }
+
+        private IAuthenticationManager AuthenticationManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().Authentication;
             }
         }
 
@@ -55,14 +63,6 @@ namespace Home3__MVC.Controllers
                 }
             }
             return View(model);
-        }
-
-        private IAuthenticationManager AuthenticationManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().Authentication;
-            }
         }
 
         public ActionResult Login(string returnUrl)
@@ -104,8 +104,10 @@ namespace Home3__MVC.Controllers
         public ActionResult Logout()
         {
             AuthenticationManager.SignOut();
+            Session["Bucket"] = null;
             return RedirectToAction("Login");
         }
+
         [HttpGet]
         public ActionResult Delete()
         {
@@ -116,7 +118,7 @@ namespace Home3__MVC.Controllers
         [ActionName("Delete")]
         public async Task<ActionResult> DeleteConfirmed()
         {
-            ApplicationUser user = await UserManager.FindByEmailAsync(User.Identity.Name);
+            ApplicationUser user = await UserManager.FindByNameAsync(User.Identity.Name);
             if (user != null)
             {
                 IdentityResult result = await UserManager.DeleteAsync(user);
@@ -130,7 +132,7 @@ namespace Home3__MVC.Controllers
 
         public async Task<ActionResult> Edit()
         {
-            ApplicationUser user = await UserManager.FindByEmailAsync(User.Identity.Name);
+            ApplicationUser user = await UserManager.FindByNameAsync(User.Identity.Name);
             if (user != null)
             {
                 EditModel model = new EditModel
@@ -155,7 +157,7 @@ namespace Home3__MVC.Controllers
         [HttpPost]
         public async Task<ActionResult> Edit(EditModel model)
         {
-            ApplicationUser user = await UserManager.FindByEmailAsync(User.Identity.Name);
+            ApplicationUser user = await UserManager.FindByNameAsync(User.Identity.Name);
             if (user != null)
             {
                 user.Name = model.Name;
@@ -167,7 +169,7 @@ namespace Home3__MVC.Controllers
                 var res = VerifyHashedPassword(user.PasswordHash, model.CurrentPassword);
                 if (res)
                 {
-                    IdentityResult result = UserManager.ChangePassword(user.Id, model.CurrentPassword, model.Password);
+                    IdentityResult result = await UserManager.ChangePasswordAsync(user.Id, model.CurrentPassword, model.Password);
                     if (result.Succeeded)
                     {
                         AuthenticationManager.SignOut();
@@ -191,10 +193,6 @@ namespace Home3__MVC.Controllers
                 ModelState.AddModelError("", "User isn`t found");
             }
             return View(model);
-        }
-        public bool CheckEmail(string email)
-        {
-            return _ctx.Users.Any(x => x.Email == email);
         }
     }
 }

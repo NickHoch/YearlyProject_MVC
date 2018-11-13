@@ -1,6 +1,6 @@
-﻿using Home3__MVC.Models.DbModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -17,7 +17,9 @@ namespace Home3__MVC.Models
         }
         public int Id { get; set; }
         public int Quantity { get; set; }
+        [Required]
         public virtual Pizza Pizza { get; set; }
-        public virtual ICollection<Order> Order { get; set; }
+        [Required]
+        public virtual Order Order { get; set; }
     }
 }

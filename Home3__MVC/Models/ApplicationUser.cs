@@ -1,5 +1,5 @@
-﻿using System;
-using Microsoft.AspNet.Identity.EntityFramework;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System.Collections.Generic;
 
 namespace Home3__MVC.Models
 {
@@ -7,6 +7,7 @@ namespace Home3__MVC.Models
     {
         public string Name { get; set; }
         public string Address { get; set; }
-        public ApplicationUser() {}        
+        //public virtual ICollection<Order> Orders { get; set; }
+        public ApplicationUser() {}
     }
 }
