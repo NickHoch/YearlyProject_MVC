@@ -57,11 +57,31 @@ namespace Home3__MVC.Models
                 new Ingredient(5.0, 40, "Chicken")
             });
             _ctx.SaveChanges();
-            var store = new UserStore<ApplicationUser>(_ctx);
-            var manager = new ApplicationUserManager(store);
+            var userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(_ctx));
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(_ctx));
+                       
+            var adminRole = new IdentityRole { Name = "admin" };
+            var userRole = new IdentityRole { Name = "user" };
+
+            roleManager.Create(adminRole);
+            roleManager.Create(userRole);
+
             ApplicationUser user = new ApplicationUser { Name = "Vasya", UserName = "vasya.pupkin@gmail.com", Email = "vasya.pupkin@gmail.com", PhoneNumber = "+380980630500", Address = "Rivne, Soborna, 1" };
-            //var user = new ApplicationUser() { Email = "informatyka4444@wp.pl", UserName = "informatyka4444@wp.pl" };
-            manager.Create(user, "Qwerty_123");
+            var result = userManager.Create(user, "Qwerty_123");
+
+            if (result.Succeeded)
+            {
+                userManager.AddToRole(user.Id, userRole.Name);
+            }
+
+            ApplicationUser admin = new ApplicationUser { Name = "Admin", UserName = "admin@gmail.com", Email = "admin.admin@gmail.com", PhoneNumber = "+380980630999", Address = "Rivne, Soborna, 2" };
+            result = userManager.Create(admin, "Qwerty_123");
+
+            if (result.Succeeded)
+            {
+                userManager.AddToRole(admin.Id, adminRole.Name);
+            }
+            base.Seed(_ctx);
 
             //ApplicationUser user = new ApplicationUser { Name = "Vasya", UserName = "vasya.pupkin@gmail.com", Email = "vasya.pupkin@gmail.com", PhoneNumber = "+380980630500", Address = "Rivne, Soborna, 1" };
             //UserManager.Create(user, "Qwerty_123");

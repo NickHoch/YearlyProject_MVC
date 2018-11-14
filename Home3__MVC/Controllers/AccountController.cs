@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -14,7 +16,7 @@ namespace Home3__MVC.Controllers
 {
     public class AccountController : Controller
     {
-        //private ApplicationContext _ctx = new ApplicationContext();
+        private ApplicationContext _ctx = ApplicationContext.getInstance();
         private ApplicationUserManager UserManager
         {
             get
@@ -52,6 +54,8 @@ namespace Home3__MVC.Controllers
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    await UserManager.AddToRoleAsync(user.Id, "user");
+                    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                     return RedirectToAction("Login", "Account");
                 }
                 else
@@ -93,6 +97,10 @@ namespace Home3__MVC.Controllers
                     }, claim);
                     if (String.IsNullOrEmpty(returnUrl))
                     {
+                        if (UserManager.IsInRole(user.Id, "admin"))
+                        {
+                            return RedirectToAction("Index", new { area = "Admin", controller = "Home" });
+                        }
                         return RedirectToAction("Index", "Home");
                     }
                     return Redirect(returnUrl);

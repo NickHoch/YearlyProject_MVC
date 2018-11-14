@@ -12,7 +12,7 @@ namespace Home3__MVC.Controllers
 {
     public class HomeController : Controller
     {
-        private static ApplicationContext _ctx = new ApplicationContext();
+        private ApplicationContext _ctx = ApplicationContext.getInstance();
         private static int Counter = 1;
 
         private ApplicationUserManager UserManager
@@ -28,6 +28,10 @@ namespace Home3__MVC.Controllers
             ApplicationUser user = await UserManager.FindByNameAsync(User.Identity.Name);
             if (user != null)
             {
+                if(User.IsInRole("admin"))
+                {
+                    return RedirectToAction("Index", new { area = "Admin", controller = "Home" });
+                }
                 model.Order.ContactInfo.Name = user.Name;
                 model.Order.ContactInfo.Address = user.Address;
                 model.Order.ContactInfo.PhoneNumber = user.PhoneNumber;
