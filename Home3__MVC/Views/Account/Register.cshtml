@@ -12,7 +12,6 @@
         <h4>Register new account</h4>
         <hr />
         <div>
-            <span style="color: red;">*</span>
             @Html.LabelFor(m => m.Email)
             <br />
             @Html.EditorFor(m => m.Email, new { htmlAttributes = new { data_url = Url.Action("CheckEmail", "Home"), placeholder = "example@domain.com" } })
@@ -20,21 +19,18 @@
             <label id="msg"></label>
         </div>
         <div>
-            <span style="color: red;">*</span>
             @Html.LabelFor(m => m.Password)
             <br />
             @Html.EditorFor(m => m.Password)
             @Html.ValidationMessageFor(m => m.Password)
         </div>
         <div>
-            <span style="color: red;">*</span>
             @Html.LabelFor(m => m.PasswordConfirm)
             <br />
             @Html.EditorFor(m => m.PasswordConfirm)
             @Html.ValidationMessageFor(m => m.PasswordConfirm)
         </div>
         <div>
-            <span style="color: red;">*</span>
             @Html.LabelFor(m => m.Name)
             <br />
             @Html.EditorFor(m => m.Name)
@@ -42,7 +38,6 @@
         </div>
 
         <div>
-            <span style="color: red;">*</span>
             @Html.LabelFor(m => m.PhoneNumber)
             <br />
             @Html.EditorFor(m => m.PhoneNumber, new { htmlAttributes = new { placeholder = "+380XX-XX-XX-XXX" } })
@@ -54,11 +49,8 @@
             @Html.EditorFor(m => m.Address)
             @Html.ValidationMessageFor(m => m.Address)
         </div>
-        <div class="submit">
-            <input type="submit" value="Submit" />
-        </div>
+        <button type="submit">Submit</button>
 
         @Html.ValidationSummary(true)
-        @Scripts.Render("~/bundles/checkEmail")
     }
 </div>

@@ -32,7 +32,7 @@ namespace Home3__MVC.Controllers
                 return HttpContext.GetOwinContext().Authentication;
             }
         }
-
+        [HttpGet]
         public ActionResult Register()
         {
             return View();
@@ -68,7 +68,7 @@ namespace Home3__MVC.Controllers
             }
             return View(model);
         }
-
+        [HttpGet]
         public ActionResult Login(string returnUrl)
         {
             ViewBag.returnUrl = returnUrl;
@@ -99,6 +99,7 @@ namespace Home3__MVC.Controllers
                     {
                         if (UserManager.IsInRole(user.Id, "admin"))
                         {
+                            Session["Bucket"] = null;
                             return RedirectToAction("Index", new { area = "Admin", controller = "Home" });
                         }
                         return RedirectToAction("Index", "Home");
@@ -109,6 +110,8 @@ namespace Home3__MVC.Controllers
             ViewBag.returnUrl = returnUrl;
             return View(model);
         }
+
+        [Authorize]
         public ActionResult Logout()
         {
             AuthenticationManager.SignOut();
@@ -117,12 +120,14 @@ namespace Home3__MVC.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult Delete()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize]
         [ActionName("Delete")]
         public async Task<ActionResult> DeleteConfirmed()
         {
@@ -137,7 +142,8 @@ namespace Home3__MVC.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
-
+        [HttpGet]
+        [Authorize]
         public async Task<ActionResult> Edit()
         {
             ApplicationUser user = await UserManager.FindByNameAsync(User.Identity.Name);
@@ -154,7 +160,7 @@ namespace Home3__MVC.Controllers
             }
             return RedirectToAction("Login", "Account");
         }
-
+        [ChildActionOnly]
         public bool VerifyHashedPassword(string hashedPassword, string password)
         {
             PasswordHasher passwordHasher = new PasswordHasher();
@@ -163,6 +169,7 @@ namespace Home3__MVC.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult> Edit(EditModel model)
         {
             ApplicationUser user = await UserManager.FindByNameAsync(User.Identity.Name);

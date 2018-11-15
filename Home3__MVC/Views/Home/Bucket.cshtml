@@ -38,6 +38,11 @@
             </tbody>
         </table>
         <div id="sumBucket" style="margin:5px; font-weight:700;"></div>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div id="discount" style="margin:5px; font-weight:700;"></div>
+            <div id="sumWithDisc" style="margin:5px; font-weight:700;"></div>
+        }
     </div>
     <hr />
     @using (Html.BeginForm("MakeOrder", "Home"))
@@ -61,6 +66,6 @@
             @Html.EditorFor(m => m.ContactInfo.Address, new { htmlAttributes = new { placeholder = "Rivne, Street name, Building number" } })
             @Html.ValidationMessageFor(m => m.ContactInfo.Address)
         </div>
-        <input type="submit" value="Make order" />
+        <button type="submit">Make order</button>
     }
 </div>

@@ -66,25 +66,24 @@ namespace Home3__MVC.Models
             roleManager.Create(adminRole);
             roleManager.Create(userRole);
 
-            ApplicationUser user = new ApplicationUser { Name = "Vasya", UserName = "vasya.pupkin@gmail.com", Email = "vasya.pupkin@gmail.com", PhoneNumber = "+380980630500", Address = "Rivne, Soborna, 1" };
-            var result = userManager.Create(user, "Qwerty_123");
+            var password = "Qwerty_123";
+
+            ApplicationUser user = new ApplicationUser { Name = "Vasya", UserName = "vasya@gmail.com", Email = "vasya@gmail.com", PhoneNumber = "+380980630555", Address = "Rivne, Soborna, 1" };
+            var result = userManager.Create(user, password);
 
             if (result.Succeeded)
             {
                 userManager.AddToRole(user.Id, userRole.Name);
             }
 
-            ApplicationUser admin = new ApplicationUser { Name = "Admin", UserName = "admin@gmail.com", Email = "admin.admin@gmail.com", PhoneNumber = "+380980630999", Address = "Rivne, Soborna, 2" };
-            result = userManager.Create(admin, "Qwerty_123");
+            ApplicationUser admin = new ApplicationUser { Name = "Admin", UserName = "admin@gmail.com", Email = "admin@gmail.com", PhoneNumber = "+380980630999", Address = "Rivne, Soborna, 2" };
+            result = userManager.Create(admin, password);
 
             if (result.Succeeded)
             {
                 userManager.AddToRole(admin.Id, adminRole.Name);
             }
             base.Seed(_ctx);
-
-            //ApplicationUser user = new ApplicationUser { Name = "Vasya", UserName = "vasya.pupkin@gmail.com", Email = "vasya.pupkin@gmail.com", PhoneNumber = "+380980630500", Address = "Rivne, Soborna, 1" };
-            //UserManager.Create(user, "Qwerty_123");
         }
     }
 }

@@ -32,14 +32,19 @@ namespace Home3__MVC
             //bundles.Add(new ScriptBundle("~/bundles/scripts").Include(
             //          "~/Scripts/buy.js",
             //          "~/Scripts/makeOrder.js"));
-            bundles.Add(new ScriptBundle("~/bundles/checkEmail").Include(
-                      "~/Scripts/checkEmail.js"));
-            bundles.Add(new ScriptBundle("~/bundles/checkEditedEmail").Include(
-                      "~/Scripts/checkEditedEmail.js"));
+            //bundles.Add(new ScriptBundle("~/bundles/checkEmail").Include(
+            //          ));
+            //bundles.Add(new ScriptBundle("~/bundles/checkEditedEmail").Include(
+            //          ));
             bundles.Add(new ScriptBundle("~/bundles/scripts").Include(
-                      "~/Scripts/delOrderItem.js",
                       "~/Scripts/calcSum.js",
+                      "~/Scripts/checkEmail.js",
+                      "~/Scripts/delOrderItem.js",
+                      "~/Scripts/editEmail.js",
                       "~/Scripts/orderActions.js"));
+            bundles.Add(new ScriptBundle("~/bundles/adminScripts").Include(
+                      "~/Scripts/checkEmail.js",
+                      "~/Scripts/checkEditedEmail.js"));
         }
     }
 }

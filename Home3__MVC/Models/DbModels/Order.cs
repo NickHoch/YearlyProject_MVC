@@ -10,13 +10,12 @@ namespace Home3__MVC.Models
     {
         public Order()
         {
-            //User = new ApplicationUser();
             Items = new List<OrderItem>();
             ContactInfo = new ContactInfo();
         }
         public int Id { get; set; }
-        //public virtual ApplicationUser User { get; set; }
         public string UserId { get; set; }
+        public DateTime OrderTime { get; set; }
         [Required]
         public virtual ContactInfo ContactInfo { get; set; }
         [Required]

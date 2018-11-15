@@ -164,6 +164,8 @@ select {
     padding-left: 10px;
     vertical-align: middle;
     line-height: 30px;
+    text-align: center;
+    margin-top: 5px;
 }
 
 .ing-price {
@@ -181,4 +183,19 @@ select {
 
 hr {
     border-width: 2px;
+}
+
+.overflow {
+    overflow-y: auto;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.flexRowStartCenter {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
 }

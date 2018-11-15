@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Home3__MVC.Models.Basis>
+
+@{
+    ViewBag.Title = "DisplayIngredients";
+}
+
+<h2>Display basis</h2>
+
+<p>
+    @Html.ActionLink("Create New", "CreateBasis")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Coefficient)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Coefficient)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditBasis", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "DeleteBasis", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>

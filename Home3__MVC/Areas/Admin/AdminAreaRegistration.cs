@@ -11,7 +11,6 @@ namespace Home3__MVC.Areas.Admin
                 return "Admin";
             }
         }
-
         public override void RegisterArea(AreaRegistrationContext context) 
         {
             context.MapRoute(

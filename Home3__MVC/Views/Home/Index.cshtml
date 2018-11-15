@@ -11,31 +11,30 @@
                 @Html.SelectSize(Model.Sizes.ToList())
                 @Html.SelectSauce(Model.Sauces.ToList())
                 <p style="margin: 10px">Available ingredients</p>
-                <div class="containerIngrid" id="availableIngrid" style="overflow-y: auto;">
+                <div class="containerIngrid overflow" id="availableIngrid">
                     @Html.Ingredients(Model.Ingredients)
                 </div>
             </div>
             <div class="col-lg-6 col-md-12">
                 <div style="height: 225px;">
-                    <h3 class="text" style="text-align:center; margin-top: 5px;">Pizza by your own recipe</h3>
+                    <h3 class="text">Pizza by your own recipe</h3>
                     <hr>
                     <div style="height: 40px; overflow-y: auto;">
                         Fill up pizza from ingredients that you choose yourself. Eat only what you love! Price of the delivery is calculated by the operator during creation your order.
                     </div>
                     <hr />
-                    <p class="pull-right ing-price cheque" id="price">uah</p>
-                    <p class="cheque" style="display: inline-block;">Sum(</p>
-                    <p class="cheque" style="display: inline-block;" id="weight"></p>
-                    <p class="cheque" style="display: inline-block;">g ingredients):</p>
-                    <div style="flex-direction:row; justify-content:flex-start; align-items:center; display:flex;">
+                    <p id="price"class="pull-right ing-price cheque">uah</p>
+                    <p class="inline-block cheque">Sum(</p>
+                    <p id="weight"class="inline-block cheque"></p>
+                    <p class="inline-block cheque">g ingredients):</p>
+                    <div class="flexRowStartCenter">
                         <div style="margin-right:5px;">Enter quantity of the pizza:</div>
                         @Html.NumericUpDown("quantity", "1", "10", "1")
                         <input id="addToBucket" type="submit" value="Add to bucket" data-url="@Url.Action("AddToBucket", "Home")" class="btn btn-warning" style="margin-left:10px;" />
-                        @*<input id="makeOrder" type="submit" value="Make order" data-url="@Url.Action("MakeOrder", "Home")" class="btn btn-warning " style="margin-left:10px;" />*@
                     </div>
                 </div>
                 <p style="margin-left: 10px">Selected ingredients</p>
-                <div id="selectedIngrid" class="containerIngrid" style="overflow-y: auto;"></div>
+                <div id="selectedIngrid" class="containerIngrid overflow""></div>
             </div>
         </div>
     </div>

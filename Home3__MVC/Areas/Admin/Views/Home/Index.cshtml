@@ -1,7 +1,10 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
 }
 
-<h2>IndexADMIN</h2>
-
+<h2>Functional of the administrator</h2>
+@Html.ActionLink("Display users", "DisplayUsers", "Home", new { }, new { @class = "btn btn-default" })
+@Html.ActionLink("Display basis", "DisplayBasis", "Home", new { }, new { @class = "btn btn-default" })
+@Html.ActionLink("Display sizes", "DisplaySizes", "Home", new { }, new { @class = "btn btn-default" })
+@Html.ActionLink("Display sauces", "DisplaySauces", "Home", new { }, new { @class = "btn btn-default" })
+@Html.ActionLink("Display ingredients", "DisplayIngredients", "Home", new { }, new { @class = "btn btn-default" })

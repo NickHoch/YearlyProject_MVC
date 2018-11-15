@@ -38,7 +38,7 @@ namespace Home3__MVC.Controllers
             }
             return View(model);
         }
-
+        [ChildActionOnly]
         public async Task<Order> SetUserInfo(Order model)
         {
             ApplicationUser user = await UserManager.FindByNameAsync(User.Identity.Name);
@@ -51,7 +51,7 @@ namespace Home3__MVC.Controllers
             }
             return model;
         }
-
+        [HttpGet]
         public async Task<ActionResult> Bucket()
         {
             Order model = null;
@@ -70,7 +70,6 @@ namespace Home3__MVC.Controllers
             }
             return View(model);
         }
-
         public void DeleteOrderItem(int id)
         {
             Order order = Session["Bucket"] as Order;
@@ -88,11 +87,13 @@ namespace Home3__MVC.Controllers
             order.ContactInfo.Name = contactInfo.Name;
             order.ContactInfo.PhoneNumber = contactInfo.PhoneNumber;
             order.ContactInfo.Address = contactInfo.Address;
+            order.OrderTime = DateTime.Now;
             _ctx.Orders.Add(order);
             _ctx.SaveChanges();
             Session["Bucket"] = null;
             return RedirectToAction("Index");
         }
+
         [HttpPost]
         public async Task AddToBucket(BucketItemModel bucketItem)
         {
@@ -115,10 +116,13 @@ namespace Home3__MVC.Controllers
             }
 
             List<Ingredient> ingredients = new List<Ingredient>();
-            foreach (var item in bucketItem.ingridIds)
+            if(bucketItem.ingridIds != null)
             {
-                ingredients.Add(_ctx.Ingredient.SingleOrDefault(x => x.Id == item));
-            }
+                foreach (var item in bucketItem.ingridIds)
+                {
+                    ingredients.Add(_ctx.Ingredient.SingleOrDefault(x => x.Id == item));
+                }
+            }        
             Pizza pizza = new Pizza(
                 _ctx.Basis.SingleOrDefault(x => x.Id == bucketItem.basisId),
                 _ctx.Size.SingleOrDefault(x => x.Id == bucketItem.sizeId),

@@ -182,10 +182,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Areas\Admin\Models\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Models\CreateUserModel.cs" />
+    <Compile Include="Areas\Admin\Models\DisplayOrderItem.cs" />
+    <Compile Include="Areas\Admin\Models\DisplayUserModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -198,6 +200,10 @@
     <Compile Include="Migrations\201811132205110_DataMigration.Designer.cs">
       <DependentUpon>201811132205110_DataMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811150827388_Update-Database.cs" />
+    <Compile Include="Migrations\201811150827388_Update-Database.Designer.cs">
+      <DependentUpon>201811150827388_Update-Database.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationContext.cs" />
     <Compile Include="Models\ApplicationRole.cs" />
@@ -205,7 +211,6 @@
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\ApplicationUserManager.cs" />
     <Compile Include="Models\BucketItemModel.cs" />
-    <Compile Include="Models\CreateRoleModel.cs" />
     <Compile Include="Models\DbModels\Basic.cs" />
     <Compile Include="Models\DbModels\Basis.cs" />
     <Compile Include="Models\DbModels\ContactInfo.cs" />
@@ -215,7 +220,6 @@
     <Compile Include="Models\DbModels\Sauce.cs" />
     <Compile Include="Models\DbModels\Size.cs" />
     <Compile Include="Models\EditModel.cs" />
-    <Compile Include="Models\EditRoleModel.cs" />
     <Compile Include="Models\HomeViewModel.cs" />
     <Compile Include="Models\DbModels\OrderItem.cs" />
     <Compile Include="Models\LoginModel.cs" />
@@ -241,6 +245,22 @@
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Account.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\DisplayUsers.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\CreateUser.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\DisplayBasis.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\EditBasis.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\CreateBasis.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\CreateSize.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\DisplaySizes.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\EditSize.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\DisplaySauces.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\EditSauce.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\CreateSauce.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\DisplayIngredients.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\CreateIngredient.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\EditIngredient.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\DisplayOrders.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\calcSum.js" />
     <Content Include="Scripts\checkEmail.js" />
@@ -277,12 +297,10 @@
     <Content Include="Views\Account\Delete.cshtml" />
     <Content Include="Views\Account\Edit.cshtml" />
     <Content Include="Views\Home\Bucket.cshtml" />
-    <Content Include="Views\Roles\Index.cshtml" />
-    <Content Include="Views\Roles\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Controllers\" />
+    <Folder Include="Areas\Admin\Views\Account\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -303,6 +321,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811132205110_DataMigration.resx">
       <DependentUpon>201811132205110_DataMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811150827388_Update-Database.resx">
+      <DependentUpon>201811150827388_Update-Database.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
