@@ -137,6 +137,7 @@ namespace Home3__MVC.Controllers
                 IdentityResult result = await UserManager.DeleteAsync(user);
                 if (result.Succeeded)
                 {
+                    Session["Bucket"] = null;
                     return RedirectToAction("Logout", "Account");
                 }
             }
